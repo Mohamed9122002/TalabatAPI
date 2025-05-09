@@ -13,56 +13,56 @@ namespace Talabat.Persistence
 {
     public class DataSeeding(StoreDbContext _dbContext) : IDataSeeding
     {
-        public void DataSeed()
+        public async Task DataSeedAsync()
         {
             try
             {
-                var pendingMigrations =  _dbContext.Database.GetPendingMigrations();
+                var pendingMigrations = await _dbContext.Database.GetPendingMigrationsAsync();
                 if (pendingMigrations.Any())
                 {
-                     _dbContext.Database.Migrate();
+                    await _dbContext.Database.MigrateAsync();
                 }
                 // Read Data From JSON File
                 if (!_dbContext.ProductBrands.Any())
                 {
-                    var ProductBrandData =  File.ReadAllText(@"..\Infrastructure\Talabat.Persistence\Data\DataSeed\brands.json");
+                    using var ProductBrandData = File.OpenRead(@"..\Infrastructure\Talabat.Persistence\Data\DataSeed\brands.json");
+
                     // Convert Data "String" to C# Object 
-                    var ProductBrands =  JsonSerializer.Deserialize<List<ProductBrand>>(ProductBrandData);
+                    var ProductBrands = await JsonSerializer.DeserializeAsync<List<ProductBrand>>(ProductBrandData);
                     // Save Data to Database
                     if (ProductBrands is not null && ProductBrands.Any())
                     {
-                         _dbContext.ProductBrands.AddRange(ProductBrands);
+                        await _dbContext.ProductBrands.AddRangeAsync(ProductBrands);
                     }
                 }
                 if (!_dbContext.ProductTypes.Any())
                 {
-                    var ProductTypeData = File.ReadAllText(@"..\Infrastructure\Talabat.Persistence\Data\DataSeed\types.json");
-
+                    using var ProductTypeData = File.OpenRead(@"..\Infrastructure\Talabat.Persistence\Data\DataSeed\types.json");
                     // Convert Data "String" to C# Object 
-                    var ProductTypes =  JsonSerializer.Deserialize<List<ProductType>>(ProductTypeData);
+                    var ProductTypes = await JsonSerializer.DeserializeAsync<List<ProductType>>(ProductTypeData);
                     // Save Data to Database
                     if (ProductTypes is not null && ProductTypes.Any())
                     {
-                         _dbContext.ProductTypes.AddRange(ProductTypes);
+                        await _dbContext.ProductTypes.AddRangeAsync(ProductTypes);
                     }
                 }
                 if (!_dbContext.Products.Any())
                 {
-                    var ProductData  = File.ReadAllText(@"..\Infrastructure\Talabat.Persistence\Data\DataSeed\products.json");
+                    using var ProductData = File.OpenRead(@"..\Infrastructure\Talabat.Persistence\Data\DataSeed\products.json");
                     // Convert Data "String" to C# Object 
-                    var Products =  JsonSerializer.Deserialize<List<Product>>(ProductData);
+                    var Products = await JsonSerializer.DeserializeAsync<List<Product>>(ProductData);
                     // Save Data to Database
                     if (Products is not null && Products.Any())
                     {
-                        _dbContext.Products.AddRange(Products);
+                        await _dbContext.Products.AddRangeAsync(Products);
                     }
                 }
 
-                 _dbContext.SaveChanges();
+                await _dbContext.SaveChangesAsync();
             }
             catch (Exception ex)
             {
-              // ToDo
+              // Do 
             }
         }
     }

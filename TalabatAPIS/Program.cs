@@ -33,11 +33,8 @@ namespace TalabatAPIS
             var scope = app.Services.CreateScope();
             var objectDataSeeding = scope.ServiceProvider.GetRequiredService<IDataSeeding>();
                 // Get the Service Provider
-                objectDataSeeding.DataSeed();
-            
-
-
-
+               await objectDataSeeding.DataSeedAsync();
+           
             // Configure the HTTP request pipeline.
             #region  Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
