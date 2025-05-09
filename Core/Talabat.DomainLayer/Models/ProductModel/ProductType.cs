@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Talabat.DomainLayer.Models.ProductModel
 {
-public    class ProductType : BaseEntity<int>
+    public class ProductType : BaseEntity<int>
     {
         public string Name { get; set; } = default!;
 

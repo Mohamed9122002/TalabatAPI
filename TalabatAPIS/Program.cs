@@ -1,4 +1,8 @@
 
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Talabat.Persistence.Data.DbContexts;
+
 namespace TalabatAPIS
 {
     public class Program
@@ -14,6 +18,10 @@ namespace TalabatAPIS
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
+            builder.Services.AddDbContext<StoreDbContext>(Options =>
+                {
+                    Options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+                });
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
