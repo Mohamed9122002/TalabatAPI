@@ -10,13 +10,13 @@ namespace Talabat.ServiceAbstraction
     public interface IProductService
     {
         // Get All Product 
-        Task<IEnumerable<ProductDto>> GetAllProductSAsync();
+        Task<IEnumerable<ProductDto>> GetAllProductsAsync();
         // Get Product By Id
         Task<ProductDto> GetProductByIdAsync(int Id);
         // Get Product By Brand
-        Task<IEnumerable<BrandDto>> GetAllBrandsAsync(string brand);
+        Task<IEnumerable<BrandDto>> GetAllBrandsAsync();
         // Get Product By Type
-        Task<IEnumerable<TypeDto>> GetAllTypesAsync(string type);
+        Task<IEnumerable<TypeDto>> GetAllTypesAsync();
 
     }
 }

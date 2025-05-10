@@ -13,7 +13,7 @@ namespace Talabat.ServiceImplemention
 {
     public class ProductService(IUnitOfWork _unitOfWork, IMapper _mapper) : IProductService
     {
-        public async Task<IEnumerable<ProductDto>> GetAllProductSAsync()
+        public async Task<IEnumerable<ProductDto>> GetAllProductsAsync()
         {
             var Repository = _unitOfWork.GenericRepository<Product, int>();
             var Products = await Repository.GetAllAsync();
@@ -27,7 +27,7 @@ namespace Talabat.ServiceImplemention
             //Mapping Product To ProductDto
             return _mapper.Map<Product, ProductDto>(Product);
         }
-        public async Task<IEnumerable<BrandDto>> GetAllBrandsAsync(string brand)
+        public async Task<IEnumerable<BrandDto>> GetAllBrandsAsync()
         {
             var Repository = _unitOfWork.GenericRepository<ProductBrand, int>();
             var Barnds = await Repository.GetAllAsync();
@@ -36,13 +36,12 @@ namespace Talabat.ServiceImplemention
         }
 
 
-        public async Task<IEnumerable<TypeDto>> GetAllTypesAsync(string type)
+        public async Task<IEnumerable<TypeDto>> GetAllTypesAsync()
         {
             var Repository = _unitOfWork.GenericRepository<ProductType, int>();
             var Types = await Repository.GetAllAsync();
             //Mapping ProductType To TypeDto
             return _mapper.Map<IEnumerable<ProductType>, IEnumerable<TypeDto>>(Types);
         }
-
     }
 }
