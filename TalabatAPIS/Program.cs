@@ -5,6 +5,9 @@ using System.Threading.Tasks;
 using Talabat.DomainLayer.Contracts;
 using Talabat.Persistence;
 using Talabat.Persistence.Data.DbContexts;
+using Talabat.Persistence.Data.Repositories;
+using Talabat.ServiceAbstraction;
+using Talabat.ServiceImplemention.MappingProfiles;
 
 namespace TalabatAPIS
 {
@@ -27,14 +30,19 @@ namespace TalabatAPIS
                     Options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
                 });
             builder.Services.AddScoped<IDataSeeding, DataSeeding>();
+            builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+            builder.Services.AddAutoMapper(typeof(ProductProfiles).Assembly);
+            builder.Services.AddScoped<IServiceManager, IServiceManager>();
+
+
             #endregion
 
             var app = builder.Build();
             var scope = app.Services.CreateScope();
             var objectDataSeeding = scope.ServiceProvider.GetRequiredService<IDataSeeding>();
-                // Get the Service Provider
-               await objectDataSeeding.DataSeedAsync();
-           
+            // Get the Service Provider
+            await objectDataSeeding.DataSeedAsync();
+
             // Configure the HTTP request pipeline.
             #region  Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
