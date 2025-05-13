@@ -7,6 +7,7 @@ using Talabat.Persistence;
 using Talabat.Persistence.Data.DbContexts;
 using Talabat.Persistence.Data.Repositories;
 using Talabat.ServiceAbstraction;
+using Talabat.ServiceImplemention;
 using Talabat.ServiceImplemention.MappingProfiles;
 
 namespace TalabatAPIS
@@ -32,7 +33,7 @@ namespace TalabatAPIS
             builder.Services.AddScoped<IDataSeeding, DataSeeding>();
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
             builder.Services.AddAutoMapper(typeof(ProductProfiles).Assembly);
-            builder.Services.AddScoped<IServiceManager, IServiceManager>();
+            builder.Services.AddScoped<IServiceManager, ServiceManager>();
 
 
             #endregion
@@ -52,9 +53,8 @@ namespace TalabatAPIS
             }
 
             app.UseHttpsRedirection();
-
-            app.UseAuthorization();
-
+            app.UseStaticFiles();
+            //app.UseAuthorization();
 
             app.MapControllers();
             #endregion
