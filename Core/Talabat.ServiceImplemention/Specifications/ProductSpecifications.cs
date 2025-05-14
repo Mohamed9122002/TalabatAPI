@@ -10,7 +10,7 @@ namespace Talabat.ServiceImplemention.Specifications
     class ProductSpecifications : BaseSpecifications<Product, int>
     {
         // Get All Products With ProductBrand And ProductType
-        public ProductSpecifications() : base(null)
+        public ProductSpecifications(int? BrandId, int? TypeId) : base(P => (!BrandId.HasValue || P.BrandId == BrandId) && (!TypeId.HasValue || P.TypeId == TypeId))
         {
             AddInclude(p => p.ProductBrand);
             AddInclude(p => p.ProductType);

@@ -14,9 +14,9 @@ namespace Talabat.ServiceImplemention
 {
     public class ProductService(IUnitOfWork _unitOfWork, IMapper _mapper) : IProductService
     {
-        public async Task<IEnumerable<ProductDto>> GetAllProductsAsync()
+        public async Task<IEnumerable<ProductDto>> GetAllProductsAsync(int ? BrandId, int? TypeId)
         {
-            var Specification = new ProductSpecifications();
+            var Specification = new ProductSpecifications(BrandId, TypeId);
             var Repository = _unitOfWork.GenericRepository<Product, int>();
             var Products = await Repository.GetAllAsync(Specification);
 
