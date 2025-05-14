@@ -20,5 +20,12 @@ namespace Talabat.DomainLayer.Contracts
         void Update(TEntity entity);
         // Remove 
         void Remove(TEntity entity);
+
+        #region With Specifications
+        // GetAll With Specifications 
+        Task<IEnumerable<TEntity>> GetAllAsync(ISpecifications<TEntity,TKey> specifications);
+        // GetById With Specifications
+        Task<TEntity?> GetByIdAsync(ISpecifications<TEntity, TKey> specifications);
+        #endregion
     }
 }

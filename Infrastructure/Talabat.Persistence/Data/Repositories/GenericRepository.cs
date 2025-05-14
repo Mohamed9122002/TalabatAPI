@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Talabat.DomainLayer.Contracts;
 using Talabat.DomainLayer.Models;
 using Talabat.Persistence.Data.DbContexts;
+using Talabat.Persistence.Evaluator;
 
 namespace Talabat.Persistence.Data.Repositories
 {
@@ -37,5 +38,19 @@ namespace Talabat.Persistence.Data.Repositories
         {
             _dbContext.Set<TEnitiy>().Update(entity);
         }
+        #region With Specifications
+        public async Task<IEnumerable<TEnitiy>> GetAllAsync(ISpecifications<TEnitiy, TKey> specifications)
+        {
+            // Create Query 
+            return await SpecificationsEvaluator.CreateQuery(_dbContext.Set<TEnitiy>(), specifications).ToListAsync();
+        }
+
+
+        public async Task<TEnitiy?> GetByIdAsync(ISpecifications<TEnitiy, TKey> specifications)
+        {
+            // Create Query 
+            return await SpecificationsEvaluator.CreateQuery(_dbContext.Set<TEnitiy>(), specifications).FirstOrDefaultAsync();
+        }
+        #endregion
     }
 }
