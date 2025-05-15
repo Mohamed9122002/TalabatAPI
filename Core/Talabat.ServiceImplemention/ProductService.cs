@@ -10,14 +10,15 @@ using Talabat.ServiceAbstraction;
 using Talabat.ServiceImplemention.Specifications;
 using Talabat.Shared.Enum;
 using Talabat.Shared.ProductsDTo;
+using Talabat.Shared.QueryParams;
 
 namespace Talabat.ServiceImplemention
 {
     public class ProductService(IUnitOfWork _unitOfWork, IMapper _mapper) : IProductService
     {
-        public async Task<IEnumerable<ProductDto>> GetAllProductsAsync(int ? BrandId, int? TypeId ,ProductSortingOption SortingOption)
+        public async Task<IEnumerable<ProductDto>> GetAllProductsAsync(ProductQueryParams queryParams)
         {
-            var Specification = new ProductSpecifications(BrandId, TypeId , SortingOption);
+            var Specification = new ProductSpecifications(queryParams);
             var Repository = _unitOfWork.GenericRepository<Product, int>();
             var Products = await Repository.GetAllAsync(Specification);
 

@@ -5,17 +5,18 @@ using System.Text;
 using System.Threading.Tasks;
 using Talabat.DomainLayer.Models.ProductModel;
 using Talabat.Shared.Enum;
+using Talabat.Shared.QueryParams;
 
 namespace Talabat.ServiceImplemention.Specifications
 {
     class ProductSpecifications : BaseSpecifications<Product, int>
     {
         // Get All Products With ProductBrand And ProductType
-        public ProductSpecifications(int? BrandId, int? TypeId ,ProductSortingOption SortingOption) : base(P => (!BrandId.HasValue || P.BrandId == BrandId) && (!TypeId.HasValue || P.TypeId == TypeId))
+        public ProductSpecifications(ProductQueryParams queryParams) : base(P => (!queryParams.BrandId.HasValue || P.BrandId == queryParams.BrandId) && (!queryParams.TypeId.HasValue || P.TypeId == queryParams.TypeId))
         {
             AddInclude(p => p.ProductBrand);
             AddInclude(p => p.ProductType);
-            switch(SortingOption)
+            switch(queryParams.SortingOption)
             {
                 case ProductSortingOption.PriceAscending:
                     AddOrderBy(p => p.Price);
