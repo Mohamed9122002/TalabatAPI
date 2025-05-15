@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Talabat.ServiceAbstraction;
+using Talabat.Shared.Enum;
 using Talabat.Shared.ProductsDTo;
 
 namespace Talabat.Presentation.Controllers
@@ -13,9 +14,9 @@ namespace Talabat.Presentation.Controllers
     {
         // get All Product 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<ProductDto>>> GetAllProducts(int? BrandId, int?TypeId)
+        public async Task<ActionResult<IEnumerable<ProductDto>>> GetAllProducts(int? BrandId, int?TypeId, ProductSortingOption  SortingOption)
         {
-            var Products = await _serviceManager.ProductService.GetAllProductsAsync(BrandId, TypeId);
+            var Products = await _serviceManager.ProductService.GetAllProductsAsync(BrandId, TypeId, SortingOption);
             return Ok(Products);
         }
         // get Product By Id

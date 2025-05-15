@@ -8,15 +8,16 @@ using Talabat.DomainLayer.Contracts;
 using Talabat.DomainLayer.Models.ProductModel;
 using Talabat.ServiceAbstraction;
 using Talabat.ServiceImplemention.Specifications;
+using Talabat.Shared.Enum;
 using Talabat.Shared.ProductsDTo;
 
 namespace Talabat.ServiceImplemention
 {
     public class ProductService(IUnitOfWork _unitOfWork, IMapper _mapper) : IProductService
     {
-        public async Task<IEnumerable<ProductDto>> GetAllProductsAsync(int ? BrandId, int? TypeId)
+        public async Task<IEnumerable<ProductDto>> GetAllProductsAsync(int ? BrandId, int? TypeId ,ProductSortingOption SortingOption)
         {
-            var Specification = new ProductSpecifications(BrandId, TypeId);
+            var Specification = new ProductSpecifications(BrandId, TypeId , SortingOption);
             var Repository = _unitOfWork.GenericRepository<Product, int>();
             var Products = await Repository.GetAllAsync(Specification);
 

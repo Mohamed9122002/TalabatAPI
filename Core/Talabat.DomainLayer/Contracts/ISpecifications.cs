@@ -15,5 +15,10 @@ namespace Talabat.DomainLayer.Contracts
         public Expression<Func<TEntity, bool>>? Criteria { get; }
         // Include Clause
         public List<Expression<Func<TEntity, object>>> IncludesExpression { get; }
+        // OrderBy Clause 
+        public Expression<Func<TEntity, object>> OrderBy{ get; }
+        // OrderByDescending Clause 
+        public Expression<Func<TEntity, object>> OrderByDescending{ get; }
+
     }
 }

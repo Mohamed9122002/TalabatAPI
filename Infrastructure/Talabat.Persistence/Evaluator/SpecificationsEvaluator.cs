@@ -22,6 +22,16 @@ namespace Talabat.Persistence.Evaluator
             {
                 Query = Query.Where(specifications.Criteria);
             }
+            // Apply OrderBy
+            if (specifications.OrderBy is not null)
+            {
+                Query = Query.OrderBy(specifications.OrderBy);
+            }
+            // Apply OrderByDescending
+            if (specifications.OrderByDescending is not null)
+            {
+                Query = Query.OrderByDescending(specifications.OrderByDescending);
+            }
             // Apply Include
             if (specifications.IncludesExpression.Count > 0)
             {
