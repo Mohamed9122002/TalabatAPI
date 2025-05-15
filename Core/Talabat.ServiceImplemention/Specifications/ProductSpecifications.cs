@@ -12,7 +12,10 @@ namespace Talabat.ServiceImplemention.Specifications
     class ProductSpecifications : BaseSpecifications<Product, int>
     {
         // Get All Products With ProductBrand And ProductType
-        public ProductSpecifications(ProductQueryParams queryParams) : base(P => (!queryParams.BrandId.HasValue || P.BrandId == queryParams.BrandId) && (!queryParams.TypeId.HasValue || P.TypeId == queryParams.TypeId))
+        public ProductSpecifications(ProductQueryParams queryParams)
+            : base(P => (!queryParams.BrandId.HasValue || P.BrandId == queryParams.BrandId)
+            && (!queryParams.TypeId.HasValue || P.TypeId == queryParams.TypeId)
+            && (string.IsNullOrWhiteSpace(queryParams.SearchValue) || P.Name.ToLower().Contains(queryParams.SearchValue.ToLower()) || P.Name.ToLower().Contains(queryParams.SearchValue.ToLower())))
         {
             AddInclude(p => p.ProductBrand);
             AddInclude(p => p.ProductType);

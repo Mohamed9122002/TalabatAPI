@@ -12,6 +12,7 @@ namespace Talabat.Shared.QueryParams
         public int? TypeId { get; set; }
         public int? BrandId { get; set; }
         public ProductSortingOption SortingOption { get; set; }
+        public string? SearchValue { get; set; }
     }
 
 }
