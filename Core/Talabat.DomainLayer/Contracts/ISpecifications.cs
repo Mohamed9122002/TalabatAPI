@@ -16,9 +16,13 @@ namespace Talabat.DomainLayer.Contracts
         // Include Clause
         public List<Expression<Func<TEntity, object>>> IncludesExpression { get; }
         // OrderBy Clause 
-        public Expression<Func<TEntity, object>> OrderBy{ get; }
+        public Expression<Func<TEntity, object>> OrderBy { get; }
         // OrderByDescending Clause 
-        public Expression<Func<TEntity, object>> OrderByDescending{ get; }
+        public Expression<Func<TEntity, object>> OrderByDescending { get; }
+        // Pagination
+        public int Take { get; }
+        public int Skip { get; }
+        public bool IsPagingEnabled { get; set; }
 
     }
 }

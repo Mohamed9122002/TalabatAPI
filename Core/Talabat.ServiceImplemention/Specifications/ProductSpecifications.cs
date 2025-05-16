@@ -19,7 +19,9 @@ namespace Talabat.ServiceImplemention.Specifications
         {
             AddInclude(p => p.ProductBrand);
             AddInclude(p => p.ProductType);
-            switch(queryParams.SortingOption)
+            // Add Pagination
+            ApplyPaging(queryParams.PageSize,queryParams.PageIndex);
+            switch (queryParams.SortingOption)
             {
                 case ProductSortingOption.PriceAscending:
                     AddOrderBy(p => p.Price);

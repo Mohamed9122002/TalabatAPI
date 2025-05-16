@@ -41,5 +41,19 @@ namespace Talabat.ServiceImplemention.Specifications
             OrderByDescending = OrderByDescendingExpression;
         }
         #endregion
+        #region Pagination
+        public int Take { get; private set; }
+
+        public int Skip { get; private set; }
+
+        public bool IsPagingEnabled { get;  set; }
+
+        public void ApplyPaging(int PageSize, int PageIndex)
+        {
+            IsPagingEnabled = true;
+            Take = PageSize;
+            Skip = PageSize * (PageIndex - 1);
+        }
+        #endregion
     }
 }

@@ -26,6 +26,8 @@ namespace Talabat.DomainLayer.Contracts
         Task<IEnumerable<TEntity>> GetAllAsync(ISpecifications<TEntity,TKey> specifications);
         // GetById With Specifications
         Task<TEntity?> GetByIdAsync(ISpecifications<TEntity, TKey> specifications);
+        // Count 
+        Task<int> CountAsync(ISpecifications<TEntity, TKey> specifications);
         #endregion
     }
 }

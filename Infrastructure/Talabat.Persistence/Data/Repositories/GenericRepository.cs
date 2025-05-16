@@ -51,6 +51,12 @@ namespace Talabat.Persistence.Data.Repositories
             // Create Query 
             return await SpecificationsEvaluator.CreateQuery(_dbContext.Set<TEnitiy>(), specifications).FirstOrDefaultAsync();
         }
+
+        public async Task<int> CountAsync(ISpecifications<TEnitiy, TKey> specifications)
+        {
+            // Create Query 
+            return await SpecificationsEvaluator.CreateQuery(_dbContext.Set<TEnitiy>(), specifications).CountAsync();
+        }
         #endregion
     }
 }

@@ -8,6 +8,7 @@ using Talabat.DomainLayer.Contracts;
 using Talabat.DomainLayer.Models.ProductModel;
 using Talabat.ServiceAbstraction;
 using Talabat.ServiceImplemention.Specifications;
+using Talabat.Shared;
 using Talabat.Shared.Enum;
 using Talabat.Shared.ProductsDTo;
 using Talabat.Shared.QueryParams;
@@ -16,14 +17,18 @@ namespace Talabat.ServiceImplemention
 {
     public class ProductService(IUnitOfWork _unitOfWork, IMapper _mapper) : IProductService
     {
-        public async Task<IEnumerable<ProductDto>> GetAllProductsAsync(ProductQueryParams queryParams)
+        public async Task<PaginatedResult<ProductDto>> GetAllProductsAsync(ProductQueryParams queryParams)
         {
-            var Specification = new ProductSpecifications(queryParams);
             var Repository = _unitOfWork.GenericRepository<Product, int>();
+            var Specification = new ProductSpecifications(queryParams);
             var Products = await Repository.GetAllAsync(Specification);
 
             //Mapping Product To ProductDto
-            return _mapper.Map<IEnumerable<Product>, IEnumerable<ProductDto>>(Products);
+            var Data = _mapper.Map<IEnumerable<Product>, IEnumerable<ProductDto>>(Products);
+            var ProductCount = Products.Count();
+            var TotalCount = await Repository.CountAsync(new ProductCountSpecifications(queryParams));
+            return new PaginatedResult<ProductDto>(queryParams.PageIndex, ProductCount, TotalCount, Data);
+
         }
         public async Task<ProductDto> GetProductByIdAsync(int Id)
         {
