@@ -1,7 +1,9 @@
 
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using System.Threading.Tasks;
+using Talabat.APIS.CustomMiddlewares;
 using Talabat.DomainLayer.Contracts;
 using Talabat.Persistence;
 using Talabat.Persistence.Data.DbContexts;
@@ -9,6 +11,7 @@ using Talabat.Persistence.Data.Repositories;
 using Talabat.ServiceAbstraction;
 using Talabat.ServiceImplemention;
 using Talabat.ServiceImplemention.MappingProfiles;
+using Talabat.Shared.ErrorModles;
 
 namespace TalabatAPIS
 {
@@ -34,7 +37,23 @@ namespace TalabatAPIS
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
             builder.Services.AddAutoMapper(typeof(ProductProfiles).Assembly);
             builder.Services.AddScoped<IServiceManager, ServiceManager>();
-
+            builder.Services.Configure<ApiBehaviorOptions>(options =>
+            {
+                options.InvalidModelStateResponseFactory = (Context) =>
+                {
+                    var Errors = Context.ModelState.Where(M => M.Value.Errors.Any())
+                    .Select(M => new ValidationError
+                    {
+                        Field = M.Key,
+                        Errors = M.Value.Errors.Select(E => E.ErrorMessage)
+                    }).ToList();
+                    var Response = new ValidationErrorToReturn
+                    {
+                        ValidationErrors = Errors
+                    };
+                    return new BadRequestObjectResult(Response);
+                };
+            });
 
             #endregion
 
@@ -45,6 +64,7 @@ namespace TalabatAPIS
             await objectDataSeeding.DataSeedAsync();
 
             // Configure the HTTP request pipeline.
+            app.UseMiddleware<CustomExceptionHandlerMiddleware>();
             #region  Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
             {

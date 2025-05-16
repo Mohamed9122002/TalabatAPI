@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Talabat.DomainLayer.Contracts;
+using Talabat.DomainLayer.Exceptions;
 using Talabat.DomainLayer.Models.ProductModel;
 using Talabat.ServiceAbstraction;
 using Talabat.ServiceImplemention.Specifications;
@@ -35,7 +36,11 @@ namespace Talabat.ServiceImplemention
             var Specification = new ProductSpecifications(Id);
             var Repository = _unitOfWork.GenericRepository<Product, int>();
             var Product = await Repository.GetByIdAsync(Specification);
+            if (Product is null)
+            {
+                throw new ProductNotFoundException(Id);
 
+            }
             //Mapping Product To ProductDto
             return _mapper.Map<Product, ProductDto>(Product);
         }
