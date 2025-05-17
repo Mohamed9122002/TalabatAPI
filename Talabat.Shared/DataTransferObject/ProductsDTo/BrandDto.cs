@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Talabat.Shared.ProductsDTo
+namespace Talabat.Shared.DataTransferObject.ProductsDTo
 {
   public  class BrandDto
     {

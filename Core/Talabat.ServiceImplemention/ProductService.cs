@@ -10,8 +10,8 @@ using Talabat.DomainLayer.Models.ProductModel;
 using Talabat.ServiceAbstraction;
 using Talabat.ServiceImplemention.Specifications;
 using Talabat.Shared;
+using Talabat.Shared.DataTransferObject.ProductsDTo;
 using Talabat.Shared.Enum;
-using Talabat.Shared.ProductsDTo;
 using Talabat.Shared.QueryParams;
 
 namespace Talabat.ServiceImplemention

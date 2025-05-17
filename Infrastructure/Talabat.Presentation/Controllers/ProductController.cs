@@ -6,8 +6,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Talabat.ServiceAbstraction;
 using Talabat.Shared;
+using Talabat.Shared.DataTransferObject.ProductsDTo;
 using Talabat.Shared.Enum;
-using Talabat.Shared.ProductsDTo;
 using Talabat.Shared.QueryParams;
 
 namespace Talabat.Presentation.Controllers

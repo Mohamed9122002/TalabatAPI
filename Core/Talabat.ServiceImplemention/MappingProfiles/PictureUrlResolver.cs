@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Talabat.DomainLayer.Models.ProductModel;
-using Talabat.Shared.ProductsDTo;
+using Talabat.Shared.DataTransferObject.ProductsDTo;
 
 namespace Talabat.ServiceImplemention.MappingProfiles
 {
