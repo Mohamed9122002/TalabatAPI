@@ -19,7 +19,7 @@ namespace Talabat.APIS.Factories
                 ValidationErrors = Errors
             };
             return new BadRequestObjectResult(Response);
-        };
+        }
     }
     }
-}
+
