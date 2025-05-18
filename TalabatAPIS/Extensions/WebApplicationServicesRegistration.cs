@@ -7,10 +7,11 @@ namespace Talabat.APIS.Extensions
     {
         public static async Task SeedDataBaseAync(this WebApplication webApplication)
         {
-            var scope = webApplication.Services.CreateScope();
+            using var scope = webApplication.Services.CreateScope();
             var objectDataSeeding = scope.ServiceProvider.GetRequiredService<IDataSeeding>();
             // Get the Service Provider
             await objectDataSeeding.DataSeedAsync();
+            await objectDataSeeding.IdentityDataSeedAsync();
         }
         public static IApplicationBuilder UseCustomExceptionMiddleWare(this IApplicationBuilder app)
         {

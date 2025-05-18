@@ -9,5 +9,6 @@ namespace Talabat.DomainLayer.Contracts
     public interface IDataSeeding
     {
         Task DataSeedAsync();
+        Task IdentityDataSeedAsync();
     }
 }

@@ -37,6 +37,7 @@ namespace TalabatAPIS
             var app = builder.Build();
             await app.SeedDataBaseAync();
 
+
             // Configure the HTTP request pipeline.
             app.UseCustomExceptionMiddleWare();
             #region  Configure the HTTP request pipeline.
