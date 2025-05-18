@@ -4,6 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using StackExchange.Redis;
 using Talabat.DomainLayer.Contracts;
 using Talabat.Persistence.Data.DbContexts;
+using Talabat.Persistence.Data.DbContexts.Identity;
 using Talabat.Persistence.Data.Repositories;
 
 namespace Talabat.Persistence
@@ -22,6 +23,10 @@ namespace Talabat.Persistence
             Services.AddSingleton<IConnectionMultiplexer>( (_) =>
             {
               return   ConnectionMultiplexer.Connect(Configuration.GetConnectionString("RedisConnectionString"));
+            });
+            Services.AddDbContext<StoreIdentityDbContext>(Options =>
+            {
+                Options.UseSqlServer(Configuration.GetConnectionString("IdentityConnection"));
             });
             return Services;
         }
