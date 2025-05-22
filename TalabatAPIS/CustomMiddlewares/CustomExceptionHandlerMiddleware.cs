@@ -30,22 +30,31 @@ namespace Talabat.APIS.CustomMiddlewares
 
         private static async Task HandleExceptionAsync(HttpContext httpContext, Exception exception)
         {
-            // Statuscode For Response 
-            httpContext.Response.StatusCode = exception switch
-            {
-                // Custom Exception 
-                ProductNotFoundException => StatusCodes.Status404NotFound,
-                // Default Exception 
-                _ => StatusCodes.Status500InternalServerError
-            };
             // Response Object 
             var response = new ErrorToReturn()
             {
                 StatusCode = httpContext.Response.StatusCode,
                 ErrorMessage = exception.Message
             };
+            // Statuscode For Response 
+            httpContext.Response.StatusCode = exception switch
+            {
+                // Custom Exception 
+                NotFoundException => StatusCodes.Status404NotFound,
+                UnauthorizedException => StatusCodes.Status401Unauthorized,
+                BadRequestException badRequestErrors => GetBadRequestErrors(badRequestErrors, response),
+                // Default Exception 
+                _ => StatusCodes.Status500InternalServerError
+            };
+
             // Return Object As JSON
             await httpContext.Response.WriteAsJsonAsync(response);
+        }
+
+        private static int GetBadRequestErrors(BadRequestException badRequestErrors, ErrorToReturn response)
+        {
+            response.Errors = badRequestErrors.Errors; 
+            return StatusCodes.Status400BadRequest;
         }
 
         private static async Task HandleNotFoundEndPontAsync(HttpContext httpContext)
