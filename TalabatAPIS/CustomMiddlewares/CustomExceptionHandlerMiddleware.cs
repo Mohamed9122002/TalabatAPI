@@ -37,7 +37,7 @@ namespace Talabat.APIS.CustomMiddlewares
                 ErrorMessage = exception.Message
             };
             // Statuscode For Response 
-            httpContext.Response.StatusCode = exception switch
+            response.StatusCode = exception switch
             {
                 // Custom Exception 
                 NotFoundException => StatusCodes.Status404NotFound,
@@ -46,7 +46,7 @@ namespace Talabat.APIS.CustomMiddlewares
                 // Default Exception 
                 _ => StatusCodes.Status500InternalServerError
             };
-
+            httpContext.Response.StatusCode = response.StatusCode;
             // Return Object As JSON
             await httpContext.Response.WriteAsJsonAsync(response);
         }

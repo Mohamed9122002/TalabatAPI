@@ -83,7 +83,7 @@ namespace Talabat.ServiceImplemention
 
         public async Task<AddressDto> GetCurrentUserAddressAsync(string email)
         {
-            var user = await _userManager.Users.Include(u => u.Email).FirstOrDefaultAsync(u => u.Email == email) ?? throw new UserNotFoundException(email);
+            var user = await _userManager.Users.Include(u => u.Address).FirstOrDefaultAsync(u => u.Email == email) ?? throw new UserNotFoundException(email);
             if (user.Address is not null)
                 return _mapper.Map<Address, AddressDto>(user.Address);
             else
@@ -93,7 +93,7 @@ namespace Talabat.ServiceImplemention
 
         public async Task<AddressDto> UpdateCurrentAddressAsync(AddressDto addressDto, string email)
         {
-            var user = await _userManager.Users.Include(u => u.Email).FirstOrDefaultAsync(u => u.Email == email) ?? throw new UserNotFoundException(email);
+            var user = await _userManager.Users.Include(u => u.Address).FirstOrDefaultAsync(u => u.Email == email) ?? throw new UserNotFoundException(email);
             if (user.Address is not null)
             {
                 // Update Address 

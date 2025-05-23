@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Talabat.DomainLayer.Exceptions
 {
-    public sealed class AddressNotFoundException(string UserName) : Exception($"User{UserName}Has No Address")
+    public sealed class AddressNotFoundException(string UserName) : NotFoundException($"User {UserName} Has No Address")
     {
 
     }
