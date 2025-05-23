@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Talabat.DomainLayer.Contracts.IdentityModule;
+using Talabat.DomainLayer.Models.IdentityModule;
 using Talabat.Shared.IdentityDTO;
 
 namespace Talabat.ServiceImplemention.MappingProfiles

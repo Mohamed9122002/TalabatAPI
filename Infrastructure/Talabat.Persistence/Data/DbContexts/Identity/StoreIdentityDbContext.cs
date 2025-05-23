@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Talabat.DomainLayer.Contracts.IdentityModule;
+using Talabat.DomainLayer.Models.IdentityModule;
 
 namespace Talabat.Persistence.Data.DbContexts.Identity
 {

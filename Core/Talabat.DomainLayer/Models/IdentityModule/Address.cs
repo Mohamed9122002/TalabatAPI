@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Talabat.DomainLayer.Contracts.IdentityModule
+namespace Talabat.DomainLayer.Models.IdentityModule
 {
     public class Address
     {

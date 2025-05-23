@@ -4,7 +4,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using StackExchange.Redis;
 using Talabat.DomainLayer.Contracts;
-using Talabat.DomainLayer.Contracts.IdentityModule;
+using Talabat.DomainLayer.Models.IdentityModule;
 using Talabat.Persistence.Data.DbContexts;
 using Talabat.Persistence.Data.DbContexts.Identity;
 using Talabat.Persistence.Data.Repositories;

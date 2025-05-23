@@ -7,7 +7,8 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 using Talabat.DomainLayer.Contracts;
-using Talabat.DomainLayer.Contracts.IdentityModule;
+using Talabat.DomainLayer.Models.IdentityModule;
+using Talabat.DomainLayer.Models.OrderModule;
 using Talabat.DomainLayer.Models.ProductModel;
 using Talabat.Persistence.Data.DbContexts;
 using Talabat.Persistence.Data.DbContexts.Identity;
@@ -58,6 +59,17 @@ namespace Talabat.Persistence
                     if (Products is not null && Products.Any())
                     {
                         await _dbContext.Products.AddRangeAsync(Products);
+                    }
+                }
+                if (!_dbContext.Set<DeliveryMethod>().Any())
+                {
+                    using var DeliveryData = File.OpenRead(@"..\Infrastructure\Talabat.Persistence\Data\DataSeed\delivery.json");
+                    // Convert Data "String" to C# Object 
+                    var Deliverys = await JsonSerializer.DeserializeAsync<List<DeliveryMethod>>(DeliveryData);
+                    // Save Data to Database
+                    if (Deliverys is not null && Deliverys.Any())
+                    {
+                        await _dbContext.Set<DeliveryMethod>().AddRangeAsync(Deliverys);
                     }
                 }
 

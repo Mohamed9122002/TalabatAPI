@@ -10,8 +10,8 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
-using Talabat.DomainLayer.Contracts.IdentityModule;
 using Talabat.DomainLayer.Exceptions;
+using Talabat.DomainLayer.Models.IdentityModule;
 using Talabat.ServiceAbstraction;
 using Talabat.Shared.IdentityDTO;
 

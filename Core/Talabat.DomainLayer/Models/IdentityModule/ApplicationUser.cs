@@ -6,7 +6,7 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Talabat.DomainLayer.Contracts.IdentityModule
+namespace Talabat.DomainLayer.Models.IdentityModule
 {
     public class ApplicationUser : IdentityUser
     {

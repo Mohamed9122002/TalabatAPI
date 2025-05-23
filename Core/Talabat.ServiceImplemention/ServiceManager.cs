@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Talabat.DomainLayer.Contracts;
-using Talabat.DomainLayer.Contracts.IdentityModule;
+using Talabat.DomainLayer.Models.IdentityModule;
 using Talabat.ServiceAbstraction;
 
 namespace Talabat.ServiceImplemention
