@@ -31,6 +31,7 @@ namespace TalabatAPIS
             builder.Services.AddInfrastructureServices(builder.Configuration);
             builder.Services.AddApplicationServices();
             builder.Services.AddWebApplicationServices();
+            builder.Services.AddJWTServices(builder.Configuration);
 
             #endregion
 
@@ -49,7 +50,9 @@ namespace TalabatAPIS
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-            //app.UseAuthorization();
+            app.UseRouting();
+            app.UseAuthentication();
+            app.UseAuthorization();
 
             app.MapControllers();
             #endregion
