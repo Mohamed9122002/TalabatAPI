@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,8 +16,9 @@ namespace Talabat.Presentation.Controllers
     public class ProductController(IServiceManager _serviceManager) : BaseApiController
     {
         // get All Product 
+        [Authorize]
         [HttpGet]
-        public async Task<ActionResult<PaginatedResult<ProductDto>>> GetAllProducts([FromQuery]ProductQueryParams queryParams)
+        public async Task<ActionResult<PaginatedResult<ProductDto>>> GetAllProducts([FromQuery] ProductQueryParams queryParams)
         {
             var Products = await _serviceManager.ProductService.GetAllProductsAsync(queryParams);
             return Ok(Products);
